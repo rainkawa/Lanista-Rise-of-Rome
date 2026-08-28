@@ -153,12 +153,12 @@ export const TitleScreen: React.FC = () => {
                 className="font-roman text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-gradient-gold mb-2"
                 style={{ textShadow: '0 0 40px rgba(212, 164, 24, 0.3)' }}
               >
-                LUDUS MAGNUS
+                LANISTA
               </motion.h1>
               <motion.h2 
                 className="font-roman text-xl sm:text-2xl md:text-3xl text-roman-gold-500 tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-2"
               >
-                Reborn
+                Rise of Rome
               </motion.h2>
             </motion.div>
 
@@ -168,7 +168,7 @@ export const TitleScreen: React.FC = () => {
               className="flex items-center justify-center gap-4 mb-8"
             >
               <div className="w-12 sm:w-20 h-px bg-gradient-to-r from-transparent to-roman-gold-500" />
-              <span className="text-roman-gold-600 text-xs sm:text-sm uppercase tracking-widest">Gladiator Ludus Simulator</span>
+              <span className="text-roman-gold-600 text-xs sm:text-sm uppercase tracking-widest">Gladyatör Ludus Simülatörü</span>
               <div className="w-12 sm:w-20 h-px bg-gradient-to-l from-transparent to-roman-gold-500" />
             </motion.div>
 
@@ -177,7 +177,7 @@ export const TitleScreen: React.FC = () => {
               variants={itemVariants}
               className="text-roman-marble-400 text-base sm:text-lg mb-10 sm:mb-12 max-w-md mx-auto leading-relaxed"
             >
-              Build your gladiator school. Train legendary fighters. Conquer the arena.
+              Gladyatör okulunu kur. Efsanevi savaşçılar yetiştir. Arenayı fethet.
             </motion.p>
 
             {/* Roman laurel decoration */}
@@ -203,7 +203,7 @@ export const TitleScreen: React.FC = () => {
                   onClick={handleNewGame}
                   className="w-56 sm:w-64 pulse-gold"
                 >
-                  New Game
+                  Yeni Oyun
                 </Button>
               </motion.div>
 
@@ -218,7 +218,7 @@ export const TitleScreen: React.FC = () => {
                     onClick={handleContinue}
                     className="w-56 sm:w-64"
                   >
-                    Continue
+                    Devam Et
                   </Button>
                 </motion.div>
               )}
@@ -234,7 +234,7 @@ export const TitleScreen: React.FC = () => {
                     onClick={() => dispatch(setScreen('modeSelect'))}
                     className="w-56 sm:w-64"
                   >
-                    New Game+ {prestigeLevel > 0 && `(Prestige ${prestigeLevel})`}
+                    Yeni Oyun+ {prestigeLevel > 0 && `(Onur ${prestigeLevel})`}
                   </Button>
                 </motion.div>
               )}
@@ -250,7 +250,7 @@ export const TitleScreen: React.FC = () => {
                     onClick={() => dispatch(setScreen('settings'))}
                     className="w-56 sm:w-64"
                   >
-                    Settings
+                    Ayarlar
                   </Button>
                 </motion.div>
               )}
@@ -272,11 +272,11 @@ export const TitleScreen: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-roman-marble-500 hover:text-roman-gold-500 transition-colors"
                 >
-                  Changelog
+                  Değişiklikler
                 </a>
               </div>
               <p className="text-roman-marble-700 text-xs">
-                A Roman Gladiator Management Game
+                Roma Gladyatör Yönetim Oyunu
               </p>
             </motion.div>
           </motion.div>

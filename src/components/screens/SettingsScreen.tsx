@@ -37,9 +37,9 @@ export const SettingsScreen: React.FC = () => {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const difficulties: { value: Difficulty; label: string; description: string }[] = [
-    { value: 'easy', label: 'Novice', description: 'More starting gold, easier opponents' },
-    { value: 'normal', label: 'Lanista', description: 'Balanced experience' },
-    { value: 'hard', label: 'Champion', description: 'Less gold, tougher opponents' },
+    { value: 'easy', label: 'Çırak', description: 'Daha fazla başlangıç altını, daha kolay rakipler' },
+    { value: 'normal', label: 'Lanista', description: 'Dengeli deneyim' },
+    { value: 'hard', label: 'Şampiyon', description: 'Daha az altın, daha zor rakipler' },
   ];
 
   const gameMode = gameState?.gameMode || 'lanista';
@@ -92,9 +92,9 @@ export const SettingsScreen: React.FC = () => {
         {/* Header */}
         <motion.div variants={itemVariants} className="flex items-center justify-between">
           <Button variant="ghost" onClick={handleBack}>
-            ← Back
+            ← Geri
           </Button>
-          <h1 className="font-roman text-3xl text-roman-gold-500">Settings</h1>
+          <h1 className="font-roman text-3xl text-roman-gold-500">Ayarlar</h1>
           <div className="w-20" /> {/* Spacer for centering */}
         </motion.div>
 
@@ -102,7 +102,7 @@ export const SettingsScreen: React.FC = () => {
         <motion.div variants={itemVariants}>
           <Card>
             <CardHeader>
-              <CardTitle>Difficulty</CardTitle>
+              <CardTitle>Zorluk</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -137,14 +137,14 @@ export const SettingsScreen: React.FC = () => {
         <motion.div variants={itemVariants}>
           <Card>
             <CardHeader>
-              <CardTitle>Game Settings</CardTitle>
+              <CardTitle>Oyun Ayarları</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Autosave */}
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-roman-marble-200">Autosave</div>
-                  <div className="text-xs text-roman-marble-500">Automatically save progress</div>
+                  <div className="text-roman-marble-200">Otomatik Kayıt</div>
+                  <div className="text-xs text-roman-marble-500">İlerlemeyi otomatik kaydet</div>
                 </div>
                 <button
                   onClick={() => dispatch(toggleAutosave())}
@@ -167,8 +167,8 @@ export const SettingsScreen: React.FC = () => {
               {/* Sound */}
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-roman-marble-200">Sound Effects</div>
-                  <div className="text-xs text-roman-marble-500">Play sound effects</div>
+                  <div className="text-roman-marble-200">Ses Efektleri</div>
+                  <div className="text-xs text-roman-marble-500">Ses efektlerini çal</div>
                 </div>
                 <button
                   onClick={() => dispatch(toggleSound())}
@@ -191,8 +191,8 @@ export const SettingsScreen: React.FC = () => {
               {/* Music */}
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-roman-marble-200">Music</div>
-                  <div className="text-xs text-roman-marble-500">Play background music</div>
+                  <div className="text-roman-marble-200">Müzik</div>
+                  <div className="text-xs text-roman-marble-500">Arka plan müziğini çal</div>
                 </div>
                 <button
                   onClick={() => dispatch(toggleMusic())}
@@ -215,7 +215,7 @@ export const SettingsScreen: React.FC = () => {
               {/* SFX Volume */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="text-roman-marble-200">Sound Volume</div>
+                  <div className="text-roman-marble-200">Ses Düzeyi</div>
                   <span className="text-sm text-roman-marble-400">{Math.round((settings.sfxVolume ?? 0.7) * 100)}%</span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -246,7 +246,7 @@ export const SettingsScreen: React.FC = () => {
               {/* Music Volume */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="text-roman-marble-200">Music Volume</div>
+                  <div className="text-roman-marble-200">Müzik Düzeyi</div>
                   <span className="text-sm text-roman-marble-400">{Math.round((settings.musicVolume ?? 0.4) * 100)}%</span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -271,19 +271,19 @@ export const SettingsScreen: React.FC = () => {
         <motion.div variants={itemVariants}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-roman-crimson-400">Danger Zone</CardTitle>
+              <CardTitle className="text-roman-crimson-400">Tehlikeli Bölge</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-roman-marble-200">Reset Game</div>
-                  <div className="text-xs text-roman-crimson-400">This will erase all progress!</div>
+                  <div className="text-roman-marble-200">Oyunu Sıfırla</div>
+                  <div className="text-xs text-roman-crimson-400">Tüm ilerleme silinecek!</div>
                 </div>
                 <Button 
                   variant="crimson"
                   onClick={() => setShowResetConfirm(true)}
                 >
-                  Reset
+                  Sıfırla
                 </Button>
               </div>
             </CardContent>
@@ -295,14 +295,14 @@ export const SettingsScreen: React.FC = () => {
           <Card variant="gold">
             <CardContent className="text-center py-6">
               <h3 className="font-roman text-xl text-roman-gold-400 mb-2">
-                Ludus Magnus: Reborn
+                Lanista: Rise of Rome
               </h3>
               <p className="text-roman-marble-400 text-sm mb-4">
-                A Roman Gladiator Management Simulation
+                Roma Gladyatör Yönetim Simülasyonu
               </p>
               <div className="flex items-center justify-center gap-3 text-sm">
                 <span className="text-roman-marble-500">
-                  Version {APP_VERSION}
+                  Sürüm {APP_VERSION}
                 </span>
                 <span className="text-roman-marble-600">•</span>
                 <a
@@ -311,7 +311,7 @@ export const SettingsScreen: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-roman-gold-500 hover:text-roman-gold-400 underline underline-offset-2 transition-colors"
                 >
-                  Changelog
+                  Değişiklikler
                 </a>
                 <span className="text-roman-marble-600">•</span>
                 <a
@@ -332,12 +332,12 @@ export const SettingsScreen: React.FC = () => {
       <Modal
         isOpen={showResetConfirm}
         onClose={() => setShowResetConfirm(false)}
-        title="Reset Game?"
+        title="Oyunu Sıfırla?"
         size="sm"
       >
         <div className="space-y-4">
           <p className="text-roman-marble-300">
-            Are you sure you want to reset the game? This action cannot be undone and all your progress will be lost.
+            Oyunu sıfırlamak istediğinden emin misin? Bu işlem geri alınamaz ve tüm ilerlemen kaybolur.
           </p>
           <div className="flex gap-3">
             <Button
@@ -345,14 +345,14 @@ export const SettingsScreen: React.FC = () => {
               className="flex-1"
               onClick={() => setShowResetConfirm(false)}
             >
-              Cancel
+              İptal
             </Button>
             <Button
               variant="crimson"
               className="flex-1"
               onClick={handleReset}
             >
-              Reset Game
+              Oyunu Sıfırla
             </Button>
           </div>
         </div>

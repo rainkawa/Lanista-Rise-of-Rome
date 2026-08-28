@@ -24,22 +24,22 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const fameState = useAppSelector(state => state.fame);
   const gold = playerState?.gold || 0;
   const ludusFame = fameState?.ludusFame || 0;
-  const ludusName = playerState?.ludusName || 'Ludus Magnus';
+  const ludusName = playerState?.ludusName || 'Lanista Ludus';
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const navItems: { id: GameScreen; label: string; icon: string; shortLabel?: string }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: '🏛️', shortLabel: 'Home' },
+    { id: 'dashboard', label: 'Genel Bakış', icon: '🏛️', shortLabel: 'Ana Sayfa' },
     { id: 'ludus', label: 'Ludus', icon: '🏗️' },
-    { id: 'gladiators', label: 'Gladiators', icon: '⚔️', shortLabel: 'Roster' },
-    { id: 'staff', label: 'Staff', icon: '👥' },
-    { id: 'marketplace', label: 'Market', icon: '🛒' },
+    { id: 'gladiators', label: 'Gladyatörler', icon: '⚔️', shortLabel: 'Kadro' },
+    { id: 'staff', label: 'Personel', icon: '👥' },
+    { id: 'marketplace', label: 'Pazar', icon: '🛒' },
     { id: 'arena', label: 'Arena', icon: '🏟️' },
-    { id: 'fame', label: 'Fame', icon: '⭐' },
-    { id: 'politics', label: 'Politics', icon: '🏛️' },
-    { id: 'quests', label: 'Quests', icon: '📜' },
-    { id: 'statistics', label: 'Statistics', icon: '📊' },
+    { id: 'fame', label: 'Şöhret', icon: '⭐' },
+    { id: 'politics', label: 'Siyaset', icon: '🏛️' },
+    { id: 'quests', label: 'Görevler', icon: '📜' },
+    { id: 'statistics', label: 'İstatistikler', icon: '📊' },
     { id: 'codex', label: 'Codex', icon: '📖' },
   ];
 
@@ -79,7 +79,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </h1>
             <div className="hidden sm:flex items-center gap-2 text-roman-marble-400 text-sm">
               <span>{getPhaseIcon()}</span>
-              <span>{monthName}, {currentYear} AD</span>
+              <span>{monthName}, {currentYear} MS</span>
             </div>
           </div>
 
@@ -92,7 +92,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
 
             {/* Gold */}
-            <Tooltip content="Treasury">
+            <Tooltip content="Hazine">
               <div className="flex items-center gap-1 sm:gap-2">
                 <span className="text-base sm:text-xl">🪙</span>
                 <span className="font-roman text-roman-gold-400 text-sm sm:text-lg">{gold.toLocaleString()}</span>
@@ -100,7 +100,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </Tooltip>
 
             {/* Fame */}
-            <Tooltip content="Ludus Fame">
+            <Tooltip content="Ludus Şöhreti">
               <div className="flex items-center gap-1 sm:gap-2">
                 <span className="text-base sm:text-xl">⭐</span>
                 <span className="font-roman text-roman-marble-300 text-sm sm:text-lg">{ludusFame}</span>
@@ -249,7 +249,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             className="flex flex-col items-center p-2 text-roman-marble-400"
           >
             <span className="text-xl">•••</span>
-            <span className="text-[10px] mt-0.5 font-roman uppercase">More</span>
+            <span className="text-[10px] mt-0.5 font-roman uppercase">Daha Fazla</span>
           </button>
         </div>
       </nav>

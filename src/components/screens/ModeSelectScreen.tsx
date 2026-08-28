@@ -9,15 +9,15 @@ const modes: { id: GameMode; title: string; subtitle: string; description: strin
   {
     id: 'lanista',
     title: 'Lanista',
-    subtitle: 'Master of the Ludus',
-    description: 'Own a gladiator school. Recruit fighters, build facilities, manage staff, and forge an empire of blood and gold. Your gladiators are your investment — send them to fight, train them to kill, and reap the rewards.',
+    subtitle: "Ludus'un Ustası",
+    description: 'Bir gladyatör okulu sahi ol. Savaşçılar topla, tesisler kur, personeli yönet ve kan ile altın üzerine bir imparatorluk inşa et. Gladyatörler senin yatırımıdır — onları savaşa gönder, öldürmeyi eğit ve ödülleri topla.',
     icon: '🏛️',
   },
   {
     id: 'gladiator',
-    title: 'Gladiator',
-    subtitle: 'Slave of the Arena',
-    description: 'Fight for survival. You are property — a weapon that belongs to someone else. Obey your dominus, earn the crowd\'s favor, and forge bonds with your fellow fighters. Your ultimate goal: earn the rudis and become a free man.',
+    title: 'Gladyatör',
+    subtitle: 'Arenanın Kölesi',
+    description: "Hayatta kalmak için savaş. Sen bir mülksün — başkasına ait bir silah. Dominus'una itaat et, kalabalığın sevgisini kazan ve dostlarınla bağlar kur. Nihai amacın: rudis'i kazan ve özgür bir adam ol.",
     icon: '⚔️',
   },
 ];
@@ -63,10 +63,10 @@ export const ModeSelectScreen: React.FC = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-10">
           <h1 className="font-roman text-4xl md:text-5xl text-gradient-gold mb-3">
-            Choose Your Path
+            Yolunu Seç
           </h1>
           <p className="text-roman-marble-400 text-lg">
-            Two sides of the arena. One world of blood and glory.
+            Arenanın iki yüzü. Kan ve zafer dolu tek bir dünya.
           </p>
         </motion.div>
 
@@ -100,7 +100,7 @@ export const ModeSelectScreen: React.FC = () => {
 
         <motion.div variants={itemVariants} className="text-center">
           <Button variant="ghost" size="lg" onClick={handleBack}>
-            Back
+            Geri
           </Button>
         </motion.div>
       </motion.div>

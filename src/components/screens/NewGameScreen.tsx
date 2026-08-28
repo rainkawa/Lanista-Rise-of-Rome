@@ -23,9 +23,9 @@ export const NewGameScreen: React.FC = () => {
 
   const prestigeBonus = prestigeLevel * 250;
   const difficulties: { id: Difficulty; label: string; description: string; gold: number }[] = [
-    { id: 'easy', label: 'Novice', description: 'For those new to the arena', gold: 1500 + prestigeBonus },
-    { id: 'normal', label: 'Gladiator', description: 'The true Roman experience', gold: 1250 + prestigeBonus },
-    { id: 'hard', label: 'Champion', description: 'Only the worthy survive', gold: 1000 + prestigeBonus },
+    { id: 'easy', label: 'Çırak', description: 'Arenaya yeni başlayanlar için', gold: 1500 + prestigeBonus },
+    { id: 'normal', label: 'Gladyatör', description: 'Gerçek Roma deneyimi', gold: 1250 + prestigeBonus },
+    { id: 'hard', label: 'Şampiyon', description: 'Sadece değer olanlar hayatta kalır', gold: 1000 + prestigeBonus },
   ];
 
   const handleStartGame = () => {
@@ -69,10 +69,10 @@ export const NewGameScreen: React.FC = () => {
             {/* Header */}
             <div className="text-center mb-8">
               <h1 className="font-roman text-3xl text-roman-gold-500 mb-2">
-                Begin Your Legacy
+                Mirasını Başlat
               </h1>
               <p className="text-roman-marble-400">
-                Establish your gladiator school and write your name in history
+                Gladyatör okulunu kur ve adını tarihe yaz
               </p>
             </div>
 
@@ -81,13 +81,13 @@ export const NewGameScreen: React.FC = () => {
               {/* Lanista Name */}
               <div>
                 <label className="block font-roman text-sm text-roman-gold-400 uppercase tracking-wide mb-2">
-                  Your Name (Lanista)
+                  Adın (Lanista)
                 </label>
                 <input
                   type="text"
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
-                  placeholder="Enter your name..."
+                  placeholder="Adını gir..."
                   className="w-full px-4 py-3 bg-roman-marble-800 border border-roman-marble-600 rounded
                            text-roman-marble-100 placeholder-roman-marble-500
                            focus:outline-none focus:border-roman-gold-500 focus:ring-1 focus:ring-roman-gold-500
@@ -99,13 +99,13 @@ export const NewGameScreen: React.FC = () => {
               {/* Ludus Name */}
               <div>
                 <label className="block font-roman text-sm text-roman-gold-400 uppercase tracking-wide mb-2">
-                  School Name (Ludus)
+                  Okul Adı (Ludus)
                 </label>
                 <input
                   type="text"
                   value={ludusName}
                   onChange={(e) => setLudusName(e.target.value)}
-                  placeholder="Enter your school's name..."
+                  placeholder="Okulunun adını gir..."
                   className="w-full px-4 py-3 bg-roman-marble-800 border border-roman-marble-600 rounded
                            text-roman-marble-100 placeholder-roman-marble-500
                            focus:outline-none focus:border-roman-gold-500 focus:ring-1 focus:ring-roman-gold-500
@@ -117,7 +117,7 @@ export const NewGameScreen: React.FC = () => {
               {/* Difficulty Selection */}
               <div>
                 <label className="block font-roman text-sm text-roman-gold-400 uppercase tracking-wide mb-3">
-                  Difficulty
+                  Zorluk
                 </label>
                 <div className="grid grid-cols-3 gap-3">
                   {difficulties.map((diff) => (
@@ -138,7 +138,7 @@ export const NewGameScreen: React.FC = () => {
                         {diff.description}
                       </div>
                       <div className="text-sm text-roman-gold-500">
-                        🪙 {diff.gold} gold
+                        🪙 {diff.gold} altın
                       </div>
                     </button>
                   ))}
@@ -156,7 +156,7 @@ export const NewGameScreen: React.FC = () => {
                   onClick={handleBack}
                   className="flex-1"
                 >
-                  Back
+                  Geri
                 </Button>
                 <Button
                   variant="gold"
@@ -165,7 +165,7 @@ export const NewGameScreen: React.FC = () => {
                   disabled={!isValid}
                   className="flex-1"
                 >
-                  Begin
+                  Başla
                 </Button>
               </div>
             </div>

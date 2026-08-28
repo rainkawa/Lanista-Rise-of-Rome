@@ -236,13 +236,13 @@ export const CodexScreen: React.FC = () => {
       <header className="sticky top-0 z-40 bg-roman-marble-900/95 backdrop-blur border-b-2 border-roman-gold-700 px-4 py-3">
         <div className="mx-auto flex items-center justify-between">
           <Button variant="ghost" onClick={handleBack}>
-            ← {selectedEntry ? 'Back to List' : 'Back'}
+            ← {selectedEntry ? 'Listeye Dön' : 'Geri'}
           </Button>
           <h1 className="font-roman text-2xl sm:text-3xl text-roman-gold-500">
             📜 Codex
           </h1>
           <div className="text-roman-marble-400 text-sm">
-            {unlockedCount}/{totalCount} entries
+            {unlockedCount}/{totalCount} kayıt
           </div>
         </div>
       </header>
@@ -351,7 +351,7 @@ export const CodexScreen: React.FC = () => {
                             </div>
                           </div>
                           {entry.unlocked && (
-                            <Badge variant="gold" size="sm">Read</Badge>
+                            <Badge variant="gold" size="sm">Oku</Badge>
                           )}
                         </div>
                       </CardContent>
@@ -371,16 +371,16 @@ export const CodexScreen: React.FC = () => {
 function getUnlockHint(condition: NonNullable<LoreEntry['unlockCondition']>): string {
   switch (condition.type) {
     case 'fame':
-      return `Reach ${condition.value} Ludus Fame`;
+      return `${condition.value} Ludus Şöhretine ulaş`;
     case 'quest':
-      return `Complete a specific quest`;
+      return `Belirli bir görevi tamamla`;
     case 'building':
-      return `Build the ${condition.value}`;
+      return `${condition.value} inşa et`;
     case 'gladiator':
-      return `Recruit ${condition.value} gladiators`;
+      return `${condition.value} gladyatör topla`;
     case 'day':
-      return `Play for ${condition.value} days`;
+      return `${condition.value} gün oyna`;
     default:
-      return 'Unknown requirement';
+      return 'Bilinmeyen gereksinim';
   }
 }

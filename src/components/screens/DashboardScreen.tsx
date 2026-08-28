@@ -118,11 +118,11 @@ export const DashboardScreen: React.FC = () => {
 
     // Process expenses
     if (totalDailyWages > 0) {
-      expenses.push({ source: 'Staff Wages', amount: totalDailyWages });
+      expenses.push({ source: 'Personel Ücretleri', amount: totalDailyWages });
       availableGold -= totalDailyWages;
     }
     if (foodCosts > 0) {
-      expenses.push({ source: 'Food & Supplies', amount: foodCosts });
+      expenses.push({ source: 'Yemek ve Malzeme', amount: foodCosts });
       availableGold -= foodCosts;
     }
 
@@ -132,7 +132,7 @@ export const DashboardScreen: React.FC = () => {
     // Fame-based income (tier bonus)
     const fameIncome = Math.floor(ludusFame / 100) * 10;
     if (fameIncome > 0) {
-      income.push({ source: 'Fame Income', amount: fameIncome });
+      income.push({ source: 'Şöhret Geliri', amount: fameIncome });
     }
 
     // Merchandise income
@@ -144,13 +144,13 @@ export const DashboardScreen: React.FC = () => {
         return sum + (item ? calculateMerchandiseIncome(item, ludusFame, totalGladiatorFame) : 0);
       }, 0);
     if (merchIncome > 0) {
-      income.push({ source: 'Merchandise Sales', amount: merchIncome });
+      income.push({ source: 'Mal Satışı', amount: merchIncome });
     }
 
     // Sponsorship income
     const sponsorIncome = activeSponsorships.reduce((sum, s) => sum + s.dailyPayment, 0);
     if (sponsorIncome > 0) {
-      income.push({ source: 'Sponsorships', amount: sponsorIncome });
+      income.push({ source: 'Sponsorluklar', amount: sponsorIncome });
     }
 
     // NOTE: Gold dispatches are deferred to the end of the function.
@@ -380,7 +380,7 @@ export const DashboardScreen: React.FC = () => {
           // Gold theft
           const stolenAmount = Math.min(gold, Math.round(gold * 0.1));
           if (stolenAmount > 0) {
-            expenses.push({ source: 'Rebellion: Gold Stolen', amount: stolenAmount });
+            expenses.push({ source: 'İsyan: Çalınan Altın', amount: stolenAmount });
             events.push(`💰 REBELLION: ${stolenAmount} gold was stolen during the unrest!`);
           }
         }
@@ -659,7 +659,7 @@ export const DashboardScreen: React.FC = () => {
               const taxRate = effect.value || 0.1;
               const taxAmount = Math.round(gold * taxRate);
               if (taxAmount > 0) {
-                expenses.push({ source: 'Imperial Tax', amount: taxAmount });
+                expenses.push({ source: 'İmparatorluk Vergisi', amount: taxAmount });
               }
               break;
             }
@@ -852,10 +852,10 @@ export const DashboardScreen: React.FC = () => {
         <motion.div variants={itemVariants} className="flex justify-between items-start">
           <div>
             <h1 className="font-roman text-3xl text-roman-gold-500 mb-2">
-              Welcome, {name}
+              Hoş geldin, {name}
             </h1>
             <p className="text-roman-marble-400">
-              {getMonthName(currentMonth)}, {currentYear} AD at {ludusName}
+              {getMonthName(currentMonth)}, {currentYear} MS - {ludusName}
             </p>
           </div>
           <div className="text-right">
@@ -878,9 +878,9 @@ export const DashboardScreen: React.FC = () => {
             <div className="flex items-center gap-3">
               <span className="text-3xl">⚠️</span>
               <div>
-                <div className="font-roman text-roman-crimson-400">Rebellion Warning!</div>
+                <div className="font-roman text-roman-crimson-400">İsyan Uyarısı!</div>
                 <div className="text-roman-marble-300 text-sm">
-                  Your gladiators are extremely restless. Improve conditions immediately or risk a revolt!
+                  Gladyatörlerin son derece huzursuz. Koşulları hemen iyileştir yoksa isyan riski doğar!
                 </div>
               </div>
             </div>
@@ -893,28 +893,28 @@ export const DashboardScreen: React.FC = () => {
             <CardContent>
               <div className="text-3xl mb-1">🪙</div>
               <div className="font-roman text-2xl text-roman-gold-400">{gold}</div>
-              <div className="text-xs text-roman-marble-500 uppercase">Gold</div>
+              <div className="text-xs text-roman-marble-500 uppercase">Altın</div>
             </CardContent>
           </Card>
           <Card className="text-center">
             <CardContent>
               <div className="text-3xl mb-1">⚔️</div>
               <div className="font-roman text-2xl text-roman-marble-200">{roster.length}</div>
-              <div className="text-xs text-roman-marble-500 uppercase">Gladiators</div>
+              <div className="text-xs text-roman-marble-500 uppercase">Gladyatörler</div>
             </CardContent>
           </Card>
           <Card className="text-center">
             <CardContent>
               <div className="text-3xl mb-1">🏗️</div>
               <div className="font-roman text-2xl text-roman-marble-200">{buildings.length}</div>
-              <div className="text-xs text-roman-marble-500 uppercase">Buildings</div>
+              <div className="text-xs text-roman-marble-500 uppercase">Binalar</div>
             </CardContent>
           </Card>
           <Card className="text-center">
             <CardContent>
               <div className="text-3xl mb-1">⭐</div>
               <div className="font-roman text-2xl text-roman-marble-200">{ludusFame}</div>
-              <div className="text-xs text-roman-marble-500 uppercase">Fame</div>
+              <div className="text-xs text-roman-marble-500 uppercase">Şöhret</div>
             </CardContent>
           </Card>
         </motion.div>
@@ -924,7 +924,7 @@ export const DashboardScreen: React.FC = () => {
           <motion.div variants={itemVariants}>
             <Card>
               <CardHeader>
-                <CardTitle>Ludus Reputation</CardTitle>
+                <CardTitle>Ludus İtibarı</CardTitle>
               </CardHeader>
               <CardContent>
                 <ProgressBar
@@ -933,14 +933,14 @@ export const DashboardScreen: React.FC = () => {
                   variant="fame"
                   size="lg"
                   showLabel
-                  label="Fame"
+                  label="Şöhret"
                 />
                 <div className="mt-4 text-sm text-roman-marble-400">
-                  {ludusFame < 100 && 'Unknown School - Only pit fights available'}
-                  {ludusFame >= 100 && ludusFame < 300 && 'Local Recognition - Provincial Munera unlocked'}
-                  {ludusFame >= 300 && ludusFame < 500 && 'Regional Fame - Better marketplace access'}
-                  {ludusFame >= 500 && ludusFame < 750 && 'Famous School - Elite options available'}
-                  {ludusFame >= 750 && "Legendary Ludus - Emperor's Games invitation"}
+                  {ludusFame < 100 && 'Bilinmeyen Okul - Sadece çukur dövüşleri açık'}
+                  {ludusFame >= 100 && ludusFame < 300 && 'Yerel Tanınırlık - Eyalet Munera açıldı'}
+                  {ludusFame >= 300 && ludusFame < 500 && 'Bölgesel Şöhret - Daha iyi pazar erişimi'}
+                  {ludusFame >= 500 && ludusFame < 750 && 'Ünlü Okul - Elit seçenekler açık'}
+                  {ludusFame >= 750 && "Efsanevi Ludus - İmparator Oyunları daveti"}
                 </div>
               </CardContent>
             </Card>
@@ -950,24 +950,24 @@ export const DashboardScreen: React.FC = () => {
           <motion.div variants={itemVariants}>
             <Card>
               <CardHeader>
-                <CardTitle>Resources</CardTitle>
+                <CardTitle>Kaynaklar</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
                     <div className="text-2xl mb-1">🌾</div>
                     <div className="font-bold text-roman-marble-200">{resources.grain}</div>
-                    <div className="text-xs text-roman-marble-500">Grain</div>
+                    <div className="text-xs text-roman-marble-500">Tahıl</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl mb-1">💧</div>
                     <div className="font-bold text-roman-marble-200">{resources.water}</div>
-                    <div className="text-xs text-roman-marble-500">Water</div>
+                    <div className="text-xs text-roman-marble-500">Su</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl mb-1">🍷</div>
                     <div className="font-bold text-roman-marble-200">{resources.wine}</div>
-                    <div className="text-xs text-roman-marble-500">Wine</div>
+                    <div className="text-xs text-roman-marble-500">Şarap</div>
                   </div>
                 </div>
               </CardContent>
@@ -978,25 +978,25 @@ export const DashboardScreen: React.FC = () => {
           <motion.div variants={itemVariants}>
             <Card>
               <CardHeader>
-                <CardTitle>Daily Summary</CardTitle>
+                <CardTitle>Günlük Özet</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-roman-marble-400">Staff Wages</span>
+                    <span className="text-roman-marble-400">Personel Ücretleri</span>
                     <span className="text-roman-crimson-400">-{totalDailyWages}g</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-roman-marble-400">Food Costs</span>
+                    <span className="text-roman-marble-400">Yemek Masrafları</span>
                     <span className="text-roman-crimson-400">-{roster.length * 2}g</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-roman-marble-400">Staff Members</span>
+                    <span className="text-roman-marble-400">Personel</span>
                     <span className="text-roman-marble-200">{employees.length}</span>
                   </div>
                   <div className="divider-roman my-2" />
                   <div className="flex justify-between items-center font-roman">
-                    <span className="text-roman-gold-400">Est. Daily Cost</span>
+                    <span className="text-roman-gold-400">Tahmini Günlük Masraf</span>
                     <span className="text-roman-crimson-400">-{totalDailyWages + roster.length * 2}g</span>
                   </div>
                 </div>
@@ -1008,18 +1008,18 @@ export const DashboardScreen: React.FC = () => {
           <motion.div variants={itemVariants}>
             <Card>
               <CardHeader>
-                <CardTitle>💰 Active Loans</CardTitle>
+                <CardTitle>💰 Aktif Krediler</CardTitle>
               </CardHeader>
               <CardContent>
                 {activeLoans.length === 0 ? (
                   <div className="text-center py-4">
-                    <div className="text-roman-marble-500 text-sm mb-3">No active loans</div>
+                    <div className="text-roman-marble-500 text-sm mb-3">Aktif kredi yok</div>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setShowLoansModal(true)}
                     >
-                      Take Out a Loan
+                      Kredi Çek
                     </Button>
                   </div>
                 ) : (
@@ -1035,21 +1035,21 @@ export const DashboardScreen: React.FC = () => {
                                 {loanType.name}
                               </div>
                               <div className="text-xs text-roman-marble-500">
-                                {loan.principal}g @ {loan.interestRate}% interest
+                                {loan.principal}g @ %{loan.interestRate} faiz
                               </div>
                             </div>
                             <div className="text-right">
                               <div className="text-sm text-roman-gold-400">
-                                {loan.monthlyPayment}g/month
+                                {loan.monthlyPayment}g/ay
                               </div>
                               <div className="text-xs text-roman-marble-500">
-                                {remaining} months left
+                                {remaining} ay kaldı
                               </div>
                             </div>
                           </div>
                           {loan.missedPayments > 0 && (
                             <div className="text-xs text-roman-crimson-400">
-                              ⚠️ {loan.missedPayments} missed payment(s)
+                              ⚠️ {loan.missedPayments} gecikmiş ödeme
                             </div>
                           )}
                           {(() => {
@@ -1067,7 +1067,7 @@ export const DashboardScreen: React.FC = () => {
                                     dispatch(payOffLoan({ loanId: loan.id, payoffAmount: payoff, currentMonth, currentYear }));
                                   }}
                                 >
-                                  Pay Off ({payoff}g)
+                                  Erken Kapat ({payoff}g)
                                 </Button>
                                 <Button
                                   variant="ghost"
@@ -1079,7 +1079,7 @@ export const DashboardScreen: React.FC = () => {
                                   }}
                                   disabled={loan.type === 'long'}
                                 >
-                                  Refinance
+                                  Yeniden Yapılandır
                                 </Button>
                               </div>
                             );
@@ -1093,7 +1093,7 @@ export const DashboardScreen: React.FC = () => {
                       className="w-full"
                       onClick={() => setShowLoansModal(true)}
                     >
-                      Take Another Loan
+                      Başka Kredi Çek
                     </Button>
                   </div>
                 )}
@@ -1105,7 +1105,7 @@ export const DashboardScreen: React.FC = () => {
           <motion.div variants={itemVariants}>
             <Card>
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+                <CardTitle>Hızlı Eylemler</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -1114,14 +1114,14 @@ export const DashboardScreen: React.FC = () => {
                     className="w-full"
                     onClick={() => dispatch(setScreen('marketplace'))}
                   >
-                    Visit Marketplace
+                    Pazara Git
                   </Button>
                   <Button
                     variant="primary"
                     className="w-full"
                     onClick={() => dispatch(setScreen('arena'))}
                   >
-                    🏟️ Visit the Arena
+                    🏟️ Arenaya Git
                   </Button>
                   <Button
                     variant="gold"
@@ -1129,7 +1129,7 @@ export const DashboardScreen: React.FC = () => {
                     onClick={handleEndMonth}
                     disabled={processingMonth}
                   >
-                    {processingMonth ? 'Processing...' : 'Advance Month →'}
+                    {processingMonth ? 'İşleniyor...' : 'Sonraki Ay →'}
                   </Button>
                 </div>
               </CardContent>
@@ -1141,7 +1141,7 @@ export const DashboardScreen: React.FC = () => {
             <motion.div variants={itemVariants}>
               <Card>
                 <CardHeader>
-                  <CardTitle>Gladiator Unrest</CardTitle>
+                  <CardTitle>Gladyatör Huzursuzluğu</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ProgressBar
@@ -1151,7 +1151,7 @@ export const DashboardScreen: React.FC = () => {
                     size="md"
                   />
                   <div className="flex justify-between mt-2 text-xs text-roman-marble-500">
-                    <span>Peaceful</span>
+                    <span>Sakin</span>
                     <span className={clsx(
                       unrestLevel >= 75 ? 'text-roman-crimson-400' :
                       unrestLevel >= 50 ? 'text-orange-400' :
@@ -1159,7 +1159,7 @@ export const DashboardScreen: React.FC = () => {
                     )}>
                       {unrestLevel}%
                     </span>
-                    <span>Rebellion</span>
+                    <span>İsyan</span>
                   </div>
                 </CardContent>
               </Card>
@@ -1174,9 +1174,9 @@ export const DashboardScreen: React.FC = () => {
               <CardContent className="flex items-center gap-4">
                 <span className="text-3xl">💡</span>
                 <div>
-                  <div className="font-roman text-roman-gold-400">Getting Started</div>
+                  <div className="font-roman text-roman-gold-400">Başlarken</div>
                   <div className="text-roman-marble-300">
-                    Visit the Marketplace to recruit your first gladiator and begin building your legacy!
+                    İlk gladyatörünü toplamak ve mirasını kurmaya başlamak için Pazar'a git!
                   </div>
                 </div>
               </CardContent>
@@ -1201,8 +1201,8 @@ export const DashboardScreen: React.FC = () => {
                 >
                   ⏳
                 </motion.div>
-                <div className="font-roman text-xl text-roman-gold-500 mb-2">Advancing Month...</div>
-                <div className="text-sm text-roman-marble-400">Processing income, expenses, training, events...</div>
+                <div className="font-roman text-xl text-roman-gold-500 mb-2">Ay İlerletiliyor...</div>
+                <div className="text-sm text-roman-marble-400">Gelir, gider, eğitim, olaylar işleniyor...</div>
               </div>
             </motion.div>
           )}
@@ -1212,7 +1212,7 @@ export const DashboardScreen: React.FC = () => {
         <Modal
           isOpen={showMonthReport}
           onClose={() => dispatch(hideMonthReport())}
-          title={`${getMonthName(lastMonthReport?.month || currentMonth)} ${lastMonthReport?.year || currentYear} AD Summary`}
+          title={`${getMonthName(lastMonthReport?.month || currentMonth)} ${lastMonthReport?.year || currentYear} MS Özeti`}
           size="lg"
         >
           {lastMonthReport && (
@@ -1251,11 +1251,11 @@ export const DashboardScreen: React.FC = () => {
                   <div className="bg-roman-marble-800 p-4 rounded-lg">
                     <div className="grid grid-cols-3 gap-4 text-center mb-4">
                       <div>
-                        <div className="text-xs text-roman-marble-500">Income</div>
+                        <div className="text-xs text-roman-marble-500">Gelir</div>
                         <div className="font-roman text-lg text-health-high">+{totalIncome}g</div>
                       </div>
                       <div>
-                        <div className="text-xs text-roman-marble-500">Expenses</div>
+                        <div className="text-xs text-roman-marble-500">Gider</div>
                         <div className="font-roman text-lg text-roman-crimson-400">-{totalExpenses}g</div>
                       </div>
                       <div>
@@ -1267,7 +1267,7 @@ export const DashboardScreen: React.FC = () => {
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-roman-marble-500 w-16">Income</span>
+                        <span className="text-xs text-roman-marble-500 w-16">Gelir</span>
                         <div className="flex-1 h-4 bg-roman-marble-700 rounded overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
@@ -1278,7 +1278,7 @@ export const DashboardScreen: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-roman-marble-500 w-16">Expenses</span>
+                        <span className="text-xs text-roman-marble-500 w-16">Gider</span>
                         <div className="flex-1 h-4 bg-roman-marble-700 rounded overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
@@ -1298,10 +1298,10 @@ export const DashboardScreen: React.FC = () => {
                 {/* Income */}
                 <div className="bg-roman-marble-800 p-4 rounded-lg">
                   <h4 className="font-roman text-health-high mb-3 flex items-center gap-2">
-                    <span>📈</span> Income
+                    <span>📈</span> Gelir
                   </h4>
                   {lastMonthReport.income.length === 0 ? (
-                    <div className="text-roman-marble-500 text-sm">No income this month</div>
+                    <div className="text-roman-marble-500 text-sm">Bu ay gelir yok</div>
                   ) : (
                     <div className="space-y-2">
                       {lastMonthReport.income.map((item, idx) => (
@@ -1311,7 +1311,7 @@ export const DashboardScreen: React.FC = () => {
                         </div>
                       ))}
                       <div className="border-t border-roman-marble-700 pt-2 flex justify-between text-sm font-bold">
-                        <span className="text-roman-marble-300">Total</span>
+                        <span className="text-roman-marble-300">Toplam</span>
                         <span className="text-health-high">+{lastMonthReport.income.reduce((s, i) => s + i.amount, 0)}g</span>
                       </div>
                     </div>
@@ -1321,10 +1321,10 @@ export const DashboardScreen: React.FC = () => {
                 {/* Expenses */}
                 <div className="bg-roman-marble-800 p-4 rounded-lg">
                   <h4 className="font-roman text-roman-crimson-400 mb-3 flex items-center gap-2">
-                    <span>📉</span> Expenses
+                    <span>📉</span> Gider
                   </h4>
                   {lastMonthReport.expenses.length === 0 ? (
-                    <div className="text-roman-marble-500 text-sm">No expenses this month</div>
+                    <div className="text-roman-marble-500 text-sm">Bu ay gider yok</div>
                   ) : (
                     <div className="space-y-2">
                       {lastMonthReport.expenses.map((item, idx) => (
@@ -1334,7 +1334,7 @@ export const DashboardScreen: React.FC = () => {
                         </div>
                       ))}
                       <div className="border-t border-roman-marble-700 pt-2 flex justify-between text-sm font-bold">
-                        <span className="text-roman-marble-300">Total</span>
+                        <span className="text-roman-marble-300">Toplam</span>
                         <span className="text-roman-crimson-400">-{lastMonthReport.expenses.reduce((s, i) => s + i.amount, 0)}g</span>
                       </div>
                     </div>
@@ -1345,7 +1345,7 @@ export const DashboardScreen: React.FC = () => {
               {/* Events */}
               {lastMonthReport.events.length > 0 && (
                 <div className="bg-roman-marble-800 p-4 rounded-lg">
-                  <h4 className="font-roman text-roman-gold-400 mb-3">Events</h4>
+                  <h4 className="font-roman text-roman-gold-400 mb-3">Olaylar</h4>
                   <div className="space-y-1 text-sm text-roman-marble-300">
                     {lastMonthReport.events.map((event, idx) => (
                       <div key={idx}>• {event}</div>
@@ -1359,7 +1359,7 @@ export const DashboardScreen: React.FC = () => {
                 className="w-full"
                 onClick={() => dispatch(hideMonthReport())}
               >
-                Continue
+                Devam Et
               </Button>
             </div>
           )}
@@ -1373,12 +1373,12 @@ export const DashboardScreen: React.FC = () => {
             setSelectedLoanType(null);
             setLoanAmount(0);
           }}
-          title="💰 Banking Services"
+          title="💰 Bankacılık Hizmetleri"
         >
           {!selectedLoanType ? (
             <div className="space-y-4">
               <p className="text-roman-marble-400 text-sm mb-4">
-                Secure funding from Roman patricians and banking houses. Choose your loan term wisely.
+                Roma patricileri ve banka evlerinden fon sağla. Kredi vadesini dikkatli seç.
               </p>
               {Object.values(LOAN_TYPES).map(loanType => {
                 const monthlyPayment = calculateMonthlyPayment(
@@ -1407,25 +1407,25 @@ export const DashboardScreen: React.FC = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-3 text-sm">
                       <div>
-                        <div className="text-roman-marble-500">Amount Range</div>
+                        <div className="text-roman-marble-500">Tutar Aralığı</div>
                         <div className="text-roman-marble-200">
                           {loanType.minAmount}-{loanType.maxAmount}g
                         </div>
                       </div>
                       <div>
-                        <div className="text-roman-marble-500">Duration</div>
+                        <div className="text-roman-marble-500">Süre</div>
                         <div className="text-roman-marble-200">
-                          {loanType.durationMonths} months
+                          {loanType.durationMonths} ay
                         </div>
                       </div>
                       <div>
-                        <div className="text-roman-marble-500">Interest Rate</div>
+                        <div className="text-roman-marble-500">Faiz Oranı</div>
                         <div className="text-roman-marble-200">
-                          {loanType.interestRate}% total
+                          %{loanType.interestRate} toplam
                         </div>
                       </div>
                       <div>
-                        <div className="text-roman-marble-500">Monthly Payment</div>
+                        <div className="text-roman-marble-500">Aylık Ödeme</div>
                         <div className="text-roman-gold-400">
                           ~{Math.round(monthlyPayment)}g
                         </div>
@@ -1453,7 +1453,7 @@ export const DashboardScreen: React.FC = () => {
                 <div className="space-y-3">
                   <div>
                     <label className="text-sm text-roman-marble-400 block mb-2">
-                      Loan Amount: {loanAmount}g
+                      Kredi Tutarı: {loanAmount}g
                     </label>
                     <input
                       type="range"
@@ -1474,7 +1474,7 @@ export const DashboardScreen: React.FC = () => {
 
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
-                      <div className="text-roman-marble-500">Monthly Payment</div>
+                      <div className="text-roman-marble-500">Aylık Ödeme</div>
                       <div className="text-roman-gold-400 font-roman text-lg">
                         {calculateMonthlyPayment(
                           loanAmount,
@@ -1484,7 +1484,7 @@ export const DashboardScreen: React.FC = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="text-roman-marble-500">Total Repayment</div>
+                      <div className="text-roman-marble-500">Toplam Geri Ödeme</div>
                       <div className="text-roman-marble-200 font-roman text-lg">
                         {calculateTotalRepayment(
                           loanAmount,
@@ -1493,15 +1493,15 @@ export const DashboardScreen: React.FC = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="text-roman-marble-500">Interest Cost</div>
+                      <div className="text-roman-marble-500">Faiz Maliyeti</div>
                       <div className="text-roman-crimson-400">
                         {Math.round(loanAmount * (LOAN_TYPES[selectedLoanType].interestRate / 100))}g
                       </div>
                     </div>
                     <div>
-                      <div className="text-roman-marble-500">Duration</div>
+                      <div className="text-roman-marble-500">Süre</div>
                       <div className="text-roman-marble-200">
-                        {LOAN_TYPES[selectedLoanType].durationMonths} months
+                        {LOAN_TYPES[selectedLoanType].durationMonths} ay
                       </div>
                     </div>
                   </div>
@@ -1523,7 +1523,7 @@ export const DashboardScreen: React.FC = () => {
                   }}
                   className="flex-1"
                 >
-                  Back
+                  Geri
                 </Button>
                 <Button
                   variant="gold"
@@ -1551,7 +1551,7 @@ export const DashboardScreen: React.FC = () => {
                   }}
                   className="flex-1"
                 >
-                  Accept Loan
+                  Krediyi Onayla
                 </Button>
               </div>
             </div>

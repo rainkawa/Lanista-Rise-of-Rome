@@ -344,25 +344,25 @@ export const getMonthName = (month: number): string => {
 
 // Helper to format date
 export const formatGameDate = (year: number, month: number): string => {
-  return `${getMonthName(month)}, ${year} AD`;
+  return `${getMonthName(month)}, ${year} MS`;
 };
 
 // Helper to get season from month
 export const getSeason = (month: number): { name: string; latin: string; icon: string } => {
   // Spring: March, April, May (3, 4, 5)
   if (month >= 3 && month <= 5) {
-    return { name: 'Spring', latin: 'Ver', icon: '🌸' };
+    return { name: 'İlkbahar', latin: 'Ver', icon: '🌸' };
   }
   // Summer: June, July, August (6, 7, 8)
   if (month >= 6 && month <= 8) {
-    return { name: 'Summer', latin: 'Aestas', icon: '☀️' };
+    return { name: 'Yaz', latin: 'Aestas', icon: '☀️' };
   }
   // Autumn: September, October, November (9, 10, 11)
   if (month >= 9 && month <= 11) {
-    return { name: 'Autumn', latin: 'Autumnus', icon: '🍂' };
+    return { name: 'Sonbahar', latin: 'Autumnus', icon: '🍂' };
   }
   // Winter: December, January, February (12, 1, 2)
-  return { name: 'Winter', latin: 'Hiems', icon: '❄️' };
+  return { name: 'Kış', latin: 'Hiems', icon: '❄️' };
 };
 
 // Helper to convert year/month to day number (for backward compatibility)

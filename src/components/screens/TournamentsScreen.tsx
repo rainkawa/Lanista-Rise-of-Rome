@@ -110,10 +110,10 @@ export const TournamentsScreen: React.FC = () => {
                 <CardContent className="py-12 text-center">
                   <div className="text-5xl mb-4">🏆</div>
                   <p className="text-roman-marble-400 text-lg">
-                    Increase your ludus fame to unlock tournaments
+                    Turnuvaları açmak için ludus şöhretini artır
                   </p>
                   <p className="text-roman-marble-500 text-sm mt-2">
-                    Current Fame: {ludusFame}
+                    Mevcut Şöhret: {ludusFame}
                   </p>
                 </CardContent>
               </Card>
@@ -136,20 +136,20 @@ export const TournamentsScreen: React.FC = () => {
           <Modal
             isOpen={showEntryModal}
             onClose={handleCloseModal}
-            title={`Enter ${selectedTournamentType.name}`}
+            title={`Turnuvaya Katıl: ${selectedTournamentType.name}`}
           >
             <div className="space-y-4">
               <div className="bg-roman-stone-800/50 p-4 rounded">
-                <h3 className="font-semibold text-roman-gold-400 mb-2">Tournament Details</h3>
+                <h3 className="font-semibold text-roman-gold-400 mb-2">Turnuva Detayları</h3>
                 <div className="space-y-1 text-sm">
-                  <p><span className="text-roman-marble-500">Size:</span> {selectedTournamentType.size} participants</p>
-                  <p><span className="text-roman-marble-500">Rules:</span> {selectedTournamentType.rules === 'death' ? 'Sine Missione (To the Death)' : 'Submission'}</p>
-                  <p><span className="text-roman-marble-500">Entry Fee:</span> {selectedTournamentType.entryFeePerGladiator} gold per gladiator</p>
+                  <p><span className="text-roman-marble-500">Boyut:</span> {selectedTournamentType.size} katılımcı</p>
+                  <p><span className="text-roman-marble-500">Kurallar:</span> {selectedTournamentType.rules === 'death' ? 'Sine Missione (Ölüme Kadar)' : 'Teslimiyet'}</p>
+                  <p><span className="text-roman-marble-500">Katılım Ücreti:</span> {selectedTournamentType.entryFeePerGladiator} gladyatör başına altın</p>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-semibold text-roman-gold-400 mb-3">Select Gladiators</h3>
+                <h3 className="font-semibold text-roman-gold-400 mb-3">Gladyatör Seç</h3>
                 <div className="space-y-2 max-h-[300px] overflow-y-auto">
                   {roster.map(gladiator => {
                     const eligibility = canGladiatorEnterTournament(
@@ -180,14 +180,14 @@ export const TournamentsScreen: React.FC = () => {
                           <div>
                             <p className="font-semibold text-roman-marble-200">{gladiator.name}</p>
                             <p className="text-sm text-roman-marble-500">
-                              Level {gladiator.level} {gladiator.class} • Fame: {gladiator.fame}
+                              Seviye {gladiator.level} {gladiator.class} • Şöhret: {gladiator.fame}
                             </p>
                           </div>
                           <div className="text-right text-sm">
                             {eligibility.canEnter ? (
                               <>
                                 <p className="text-roman-marble-400">HP: {gladiator.currentHP}/{gladiator.maxHP}</p>
-                                <p className="text-roman-marble-400">Stamina: {gladiator.currentStamina}/{gladiator.maxStamina}</p>
+                                <p className="text-roman-marble-400">Dayanıklılık: {gladiator.currentStamina}/{gladiator.maxStamina}</p>
                               </>
                             ) : (
                               <p className="text-roman-blood-400">{eligibility.reason}</p>
@@ -203,18 +203,18 @@ export const TournamentsScreen: React.FC = () => {
               {selectedGladiatorIds.length > 0 && (
                 <div className="bg-roman-stone-800/50 p-3 rounded">
                   <p className="text-sm">
-                    <span className="text-roman-marble-500">Total Entry Fee:</span>{' '}
+                    <span className="text-roman-marble-500">Toplam Katılım Ücreti:</span>{' '}
                     <span className={clsx(
                       'font-semibold',
                       gold >= selectedTournamentType.entryFeePerGladiator * selectedGladiatorIds.length
                         ? 'text-roman-gold-400'
                         : 'text-roman-blood-400'
                     )}>
-                      {selectedTournamentType.entryFeePerGladiator * selectedGladiatorIds.length} gold
+                      {selectedTournamentType.entryFeePerGladiator * selectedGladiatorIds.length} altın
                     </span>
                   </p>
                   <p className="text-sm text-roman-marble-500">
-                    Selected: {selectedGladiatorIds.length} gladiator{selectedGladiatorIds.length !== 1 ? 's' : ''}
+                    Seçilen: {selectedGladiatorIds.length} gladyatör
                   </p>
                 </div>
               )}
