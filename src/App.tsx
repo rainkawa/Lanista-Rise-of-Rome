@@ -30,6 +30,7 @@ import { audioManager } from '@/audio/AudioManager';
 import { useScreenMusic } from '@/audio/useAudio';
 import { getSeason, setScreen } from '@features/game/gameSlice';
 import { useAppDispatch } from '@app/hooks';
+import { t } from '@/i18n';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -136,7 +137,7 @@ const App: React.FC = () => {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm">
           <div className="max-w-lg mx-4 text-center">
             <div className="text-6xl mb-6">💀</div>
-            <h1 className="font-roman text-4xl text-roman-crimson-400 mb-4">GAME OVER</h1>
+            <h1 className="font-roman text-4xl text-roman-crimson-400 mb-4">{t('common.gameOver')}</h1>
             <p className="text-roman-marble-300 mb-8 leading-relaxed">
               {gameOverReason}
             </p>
