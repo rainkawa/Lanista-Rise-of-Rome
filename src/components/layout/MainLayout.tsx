@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppSelector, useAppDispatch } from '@app/hooks';
 import { setScreen, getMonthName } from '@features/game/gameSlice';
 import type { GameScreen } from '@/types';
 import { clsx } from 'clsx';
 import { Tooltip } from '@components/ui';
+import { t, getLocale } from '@/i18n';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -13,34 +14,100 @@ interface MainLayoutProps {
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const dispatch = useAppDispatch();
   const gameState = useAppSelector(state => state.game);
+
   const currentYear = gameState?.currentYear || 73;
   const currentMonth = gameState?.currentMonth || 1;
   const currentScreen = gameState?.currentScreen || 'dashboard';
   const currentPhase = gameState?.currentPhase || 'morning';
-  
+
   const monthName = getMonthName(currentMonth);
-  
+
   const playerState = useAppSelector(state => state.player);
   const fameState = useAppSelector(state => state.fame);
+
   const gold = playerState?.gold || 0;
   const ludusFame = fameState?.ludusFame || 0;
   const ludusName = playerState?.ludusName || 'Ludus Magnus';
-  
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [locale, setLocaleState] = useState(getLocale());
 
-  const navItems: { id: GameScreen; label: string; icon: string; shortLabel?: string }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: '🏛️', shortLabel: 'Home' },
-    { id: 'ludus', label: 'Ludus', icon: '🏗️' },
-    { id: 'gladiators', label: 'Gladiators', icon: '⚔️', shortLabel: 'Roster' },
-    { id: 'staff', label: 'Staff', icon: '👥' },
-    { id: 'marketplace', label: 'Market', icon: '🛒' },
-    { id: 'arena', label: 'Arena', icon: '🏟️' },
-    { id: 'fame', label: 'Fame', icon: '⭐' },
-    { id: 'politics', label: 'Politics', icon: '🏛️' },
-    { id: 'quests', label: 'Quests', icon: '📜' },
-    { id: 'statistics', label: 'Statistics', icon: '📊' },
-    { id: 'codex', label: 'Codex', icon: '📖' },
+  useEffect(() => {
+    const handleLocaleChange = () => {
+      setLocaleState(getLocale());
+    };
+
+    window.addEventListener('lanista-locale-change', handleLocaleChange);
+
+    return () => {
+      window.removeEventListener('lanista-locale-change', handleLocaleChange);
+    };
+  }, []);
+
+  const navItems: {
+    id: GameScreen;
+    label: string;
+    icon: string;
+    shortLabel?: string;
+  }[] = [
+    {
+      id: 'dashboard',
+      label: t('nav.dashboard', locale),
+      icon: '🏛️',
+      shortLabel: t('nav.home', locale),
+    },
+    {
+      id: 'ludus',
+      label: t('nav.ludus', locale),
+      icon: '🏗️',
+    },
+    {
+      id: 'gladiators',
+      label: t('nav.gladiators', locale),
+      icon: '⚔️',
+      shortLabel: t('nav.roster', locale),
+    },
+    {
+      id: 'staff',
+      label: t('nav.staff', locale),
+      icon: '👥',
+    },
+    {
+      id: 'marketplace',
+      label: t('nav.market', locale),
+      icon: '🛒',
+    },
+    {
+      id: 'arena',
+      label: t('nav.arena', locale),
+      icon: '🏟️',
+    },
+    {
+      id: 'fame',
+      label: t('nav.fame', locale),
+      icon: '⭐',
+    },
+    {
+      id: 'politics',
+      label: t('nav.politics', locale),
+      icon: '🏛️',
+    },
+    {
+      id: 'quests',
+      label: t('nav.quests', locale),
+      icon: '📜',
+    },
+    {
+      id: 'statistics',
+      label: t('nav.statistics', locale),
+      icon: '📊',
+    },
+    {
+      id: 'codex',
+      label: t('nav.codex', locale),
+      icon: '📖',
+    },
   ];
 
   const handleNavigate = (screen: GameScreen) => {
@@ -50,12 +117,18 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   const getPhaseIcon = () => {
     switch (currentPhase) {
-      case 'dawn': return '🌅';
-      case 'morning': return '☀️';
-      case 'afternoon': return '🌤️';
-      case 'evening': return '🌆';
-      case 'night': return '🌙';
-      default: return '☀️';
+      case 'dawn':
+        return '🌅';
+      case 'morning':
+        return '☀️';
+      case 'afternoon':
+        return '🌤️';
+      case 'evening':
+        return '🌆';
+      case 'night':
+        return '🌙';
+      default:
+        return '☀️';
     }
   };
 
@@ -68,8 +141,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden text-roman-marble-300 hover:text-roman-gold-500 transition-colors p-2"
+            aria-label={t('nav.openMenu', locale)}
           >
-            <span className="text-2xl">{mobileMenuOpen ? '✕' : '☰'}</span>
+            <span className="text-2xl">
+              {mobileMenuOpen ? '✕' : '☰'}
+            </span>
           </button>
 
           {/* Ludus Name */}
@@ -77,6 +153,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <h1 className="font-roman text-lg sm:text-2xl text-roman-gold-500 text-shadow-roman truncate max-w-[120px] sm:max-w-none">
               {ludusName}
             </h1>
+
             <div className="hidden sm:flex items-center gap-2 text-roman-marble-400 text-sm">
               <span>{getPhaseIcon()}</span>
               <span>{monthName}, {currentYear} AD</span>
@@ -88,22 +165,28 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             {/* Date (mobile only) */}
             <div className="flex sm:hidden items-center gap-1 text-roman-marble-400 text-xs">
               <span>{getPhaseIcon()}</span>
-              <span>{monthName.substring(0, 3)} {currentYear}</span>
+              <span>
+                {monthName.substring(0, 3)} {currentYear}
+              </span>
             </div>
 
             {/* Gold */}
-            <Tooltip content="Treasury">
+            <Tooltip content={t('resources.treasury', locale)}>
               <div className="flex items-center gap-1 sm:gap-2">
                 <span className="text-base sm:text-xl">🪙</span>
-                <span className="font-roman text-roman-gold-400 text-sm sm:text-lg">{gold.toLocaleString()}</span>
+                <span className="font-roman text-roman-gold-400 text-sm sm:text-lg">
+                  {gold.toLocaleString()}
+                </span>
               </div>
             </Tooltip>
 
             {/* Fame */}
-            <Tooltip content="Ludus Fame">
+            <Tooltip content={t('resources.ludusFame', locale)}>
               <div className="flex items-center gap-1 sm:gap-2">
                 <span className="text-base sm:text-xl">⭐</span>
-                <span className="font-roman text-roman-marble-300 text-sm sm:text-lg">{ludusFame}</span>
+                <span className="font-roman text-roman-marble-300 text-sm sm:text-lg">
+                  {ludusFame}
+                </span>
               </div>
             </Tooltip>
 
@@ -111,6 +194,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <button
               onClick={() => handleNavigate('settings')}
               className="hidden sm:block text-roman-marble-400 hover:text-roman-gold-500 transition-colors text-xl"
+              aria-label={t('nav.settings', locale)}
             >
               ⚙️
             </button>
@@ -130,12 +214,14 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="fixed inset-0 bg-black/50 z-40 lg:hidden"
               />
+
               <motion.nav
                 initial={{ x: '-100%' }}
                 animate={{ x: 0 }}
                 exit={{ x: '-100%' }}
                 transition={{ type: 'tween', duration: 0.2 }}
                 className="fixed left-0 top-0 h-full w-64 bg-roman-marble-900 border-r border-roman-marble-700 z-50 lg:hidden pt-16"
+                aria-label={t('nav.navigation', locale)}
               >
                 <ul className="space-y-1 p-2">
                   {navItems.map(item => (
@@ -151,7 +237,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                         )}
                       >
                         <span className="text-xl">{item.icon}</span>
-                        <span className="font-roman text-sm uppercase tracking-wide">{item.label}</span>
+
+                        <span className="font-roman text-sm uppercase tracking-wide">
+                          {item.label}
+                        </span>
                       </button>
                     </li>
                   ))}
@@ -162,14 +251,22 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         </AnimatePresence>
 
         {/* Desktop Side Navigation */}
-        <nav className={clsx(
-          'hidden lg:block bg-roman-marble-900 border-r border-roman-marble-700 py-4 transition-all duration-300 flex-shrink-0',
-          sidebarCollapsed ? 'w-16' : 'w-48'
-        )}>
+        <nav
+          className={clsx(
+            'hidden lg:block bg-roman-marble-900 border-r border-roman-marble-700 py-4 transition-all duration-300 flex-shrink-0',
+            sidebarCollapsed ? 'w-16' : 'w-48'
+          )}
+          aria-label={t('nav.navigation', locale)}
+        >
           {/* Collapse Toggle */}
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             className="w-full px-4 py-2 text-roman-marble-500 hover:text-roman-marble-300 transition-colors text-right"
+            aria-label={
+              sidebarCollapsed
+                ? t('nav.expandSidebar', locale)
+                : t('nav.collapseSidebar', locale)
+            }
           >
             {sidebarCollapsed ? '→' : '←'}
           </button>
@@ -178,33 +275,36 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             {navItems.map(item => (
               <li key={item.id}>
                 {sidebarCollapsed ? (
-                  <Tooltip content={item.label} position="right">
-                    <button
-                      onClick={() => handleNavigate(item.id)}
-                      className={clsx(
-                        'w-full px-4 py-3 flex items-center justify-center transition-all',
-                        'hover:bg-roman-marble-800',
-                        currentScreen === item.id
-                          ? 'bg-roman-marble-800 border-l-2 border-roman-gold-500 text-roman-gold-400'
-                          : 'text-roman-marble-300 border-l-2 border-transparent'
-                      )}
-                    >
-                      <span className="text-xl">{item.icon}</span>
-                    </button>
-                  </Tooltip>
+                  <button
+                    onClick={() => handleNavigate(item.id)}
+                    className={clsx(
+                      'w-full py-3 flex items-center justify-center transition-all rounded-lg',
+                      'hover:bg-roman-marble-800',
+                      currentScreen === item.id
+                        ? 'bg-roman-marble-800 text-roman-gold-400'
+                        : 'text-roman-marble-300'
+                    )}
+                    title={item.label}
+                    aria-label={item.label}
+                  >
+                    <span className="text-xl">{item.icon}</span>
+                  </button>
                 ) : (
                   <button
                     onClick={() => handleNavigate(item.id)}
                     className={clsx(
-                      'w-full px-4 py-3 flex items-center gap-3 text-left transition-all',
-                      'hover:bg-roman-marble-800 hover:border-l-2 hover:border-roman-gold-500',
+                      'w-full px-4 py-3 flex items-center gap-3 text-left transition-all rounded-lg',
+                      'hover:bg-roman-marble-800',
                       currentScreen === item.id
-                        ? 'bg-roman-marble-800 border-l-2 border-roman-gold-500 text-roman-gold-400'
-                        : 'text-roman-marble-300 border-l-2 border-transparent'
+                        ? 'bg-roman-marble-800 text-roman-gold-400'
+                        : 'text-roman-marble-300'
                     )}
                   >
                     <span className="text-xl">{item.icon}</span>
-                    <span className="font-roman text-sm uppercase tracking-wide">{item.label}</span>
+
+                    <span className="font-roman text-sm uppercase tracking-wide">
+                      {item.label}
+                    </span>
                   </button>
                 )}
               </li>
@@ -213,49 +313,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         </nav>
 
         {/* Main Content */}
-        <main className="flex-1 p-3 sm:p-4 lg:p-6 overflow-auto">
-          <motion.div
-            key={currentScreen}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-            className="mx-auto"
-          >
-            {children}
-          </motion.div>
+        <main className="flex-1 overflow-auto">
+          {children}
         </main>
       </div>
-
-      {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-roman-marble-900 border-t-2 border-roman-gold-700 z-30">
-        <div className="flex justify-around items-center py-2">
-          {navItems.slice(0, 5).map(item => (
-            <button
-              key={item.id}
-              onClick={() => handleNavigate(item.id)}
-              className={clsx(
-                'flex flex-col items-center p-2 transition-colors',
-                currentScreen === item.id ? 'text-roman-gold-400' : 'text-roman-marble-400'
-              )}
-            >
-              <span className="text-xl">{item.icon}</span>
-              <span className="text-[10px] mt-0.5 font-roman uppercase">
-                {item.shortLabel || item.label}
-              </span>
-            </button>
-          ))}
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="flex flex-col items-center p-2 text-roman-marble-400"
-          >
-            <span className="text-xl">•••</span>
-            <span className="text-[10px] mt-0.5 font-roman uppercase">More</span>
-          </button>
-        </div>
-      </nav>
-
-      {/* Spacer for bottom navigation */}
-      <div className="h-16 lg:hidden" />
     </div>
   );
 };
